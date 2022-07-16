@@ -1,5 +1,7 @@
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Play.Catalog.Service.Entities;
+using Play.Catalog.Service.Settings;
 
 namespace Play.Catalog.Service.Repositories
 {
@@ -10,9 +12,9 @@ namespace Play.Catalog.Service.Repositories
         private readonly IMongoCollection<Item> dbCollection;
         private readonly FilterDefinitionBuilder<Item> filterBuilder = Builders<Item>.Filter;
 
-        public ItemsRepository()
+        public ItemsRepository(IOptions<MongoDbSettings> mongoDbSettings)
         {
-            var mongoClient = new MongoClient("mongodb://localhost:27017");
+            var mongoClient = new MongoClient($"mongodb://{mongoDbSettings.Value.Host}:{mongoDbSettings.Value.Port}");
             var database = mongoClient.GetDatabase("Catalog");
             dbCollection = database.GetCollection<Item>(collectionName);
         }
