@@ -12,10 +12,8 @@ namespace Play.Catalog.Service.Repositories
         private readonly IMongoCollection<Item> dbCollection;
         private readonly FilterDefinitionBuilder<Item> filterBuilder = Builders<Item>.Filter;
 
-        public ItemsRepository(IOptions<MongoDbSettings> mongoDbSettings)
+        public ItemsRepository(IMongoDatabase database)
         {
-            var mongoClient = new MongoClient($"mongodb://{mongoDbSettings.Value.Host}:{mongoDbSettings.Value.Port}");
-            var database = mongoClient.GetDatabase("Catalog");
             dbCollection = database.GetCollection<Item>(collectionName);
         }
 
