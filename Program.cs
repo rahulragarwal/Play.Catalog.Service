@@ -1,6 +1,6 @@
 using Play.Catalog.Service.Entities;
-using Play.Catalog.Service.Repository;
-using Play.Catalog.Service.Settings;
+using Play.Common.MongoDB;
+using Play.Common.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,8 +28,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-
 
 app.UseAuthorization();
 
