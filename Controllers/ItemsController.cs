@@ -10,9 +10,9 @@ namespace Play.Catalog.Service.Controllers
     [Route("items")]
     public class ItemsController : ControllerBase
     {
-        private readonly IItemsRepository itemsRepository;
+        private readonly IRepository<Item> itemsRepository;
 
-        public ItemsController(IItemsRepository itemsRepository)
+        public ItemsController(IRepository<Item> itemsRepository)
         {
             this.itemsRepository = itemsRepository;
         }
@@ -26,7 +26,7 @@ namespace Play.Catalog.Service.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ItemDto>> GetByIdAsync(Guid id)
         {
-            var item = await itemsRepository.GetItemAsync(id);
+            var item = await itemsRepository.GetAsync(id);
             if (item == null)
                 return NotFound();
             return item.AsDto();
@@ -49,7 +49,7 @@ namespace Play.Catalog.Service.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<ItemDto>> PutAsync(Guid id, UpdateItemDto updateItemDto)
         {
-            var existingItem = await itemsRepository.GetItemAsync(id);
+            var existingItem = await itemsRepository.GetAsync(id);
             if (existingItem == null)
                 return NotFound();
             else
@@ -65,7 +65,7 @@ namespace Play.Catalog.Service.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
-            var existingItem = await itemsRepository.GetItemAsync(id);
+            var existingItem = await itemsRepository.GetAsync(id);
             if (existingItem == null)
                 return NoContent();
             else
