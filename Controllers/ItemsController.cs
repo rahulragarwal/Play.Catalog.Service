@@ -1,9 +1,9 @@
-using MassTransit;
 using Microsoft.AspNetCore.Mvc;
-using Play.Catalog.Contracts;
 using Play.Catalog.Service.Dtos;
 using Play.Catalog.Service.Entities;
 using Play.Common;
+using Play.Catalog.Contracts;
+using MassTransit;
 
 namespace Play.Catalog.Service.Controllers
 {
@@ -20,6 +20,7 @@ namespace Play.Catalog.Service.Controllers
             this.itemsRepository = itemsRepository;
             this.publishEndpoint = publishEndpoint;
         }
+        
         [HttpGet]
         public async Task<IEnumerable<ItemDto>> GetAsync()
         {
@@ -49,7 +50,7 @@ namespace Play.Catalog.Service.Controllers
                 CreatedDate = DateTimeOffset.UtcNow
             };
             await itemsRepository.CreateAsync(newItem);
-            await publishEndpoint.Publish(new CatalogItemCreated(newItem.Id, newItem.Name, newItem.Description));
+            await publishEndpoint.Publish(new CatalogItemAdded(newItem.Id, newItem.Name, newItem.Description));
             return CreatedAtAction(nameof(GetByIdAsync), new { id = newItem.Id }, newItem);
         }
 
