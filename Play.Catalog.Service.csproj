@@ -4,11 +4,18 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>634996ac-5f50-4980-a1b3-23387044153b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="play.common" Version="1.1.0" />
+    <!-- <PackageReference Include="MassTransit.AspNetCore" Version="7.3.1" /> -->
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.5" />
+    <PackageReference Include="play.common" Version="1.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Play.Catalog.Contracts\Play.Catalog.Contracts.csproj" />
   </ItemGroup>
 
 </Project>
